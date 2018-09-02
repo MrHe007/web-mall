@@ -1,0 +1,47 @@
+package com.bigguy.content.service.impl;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.bigguy.content.service.ContentCategoryService;
+import com.bigguy.mapper.TbContentCategoryMapper;
+import com.bigguy.pojo.EasyUITreeNode;
+import com.bigguy.pojo.TbContentCategory;
+import com.bigguy.pojo.TbContentCategoryExample;
+import com.bigguy.pojo.TbContentCategoryExample.Criteria;
+
+@Service
+public class ContentCategoryServiceImpl implements ContentCategoryService {
+
+	@Autowired
+	private TbContentCategoryMapper mapper;
+	
+	public List<EasyUITreeNode> getContentCategoryList(long id) {
+		
+		TbContentCategoryExample example = new TbContentCategoryExample();
+		
+		Criteria criteria = example.createCriteria();
+		criteria.andParentIdEqualTo(id); 		// 加上限定条件
+		
+		List<TbContentCategory> list = mapper.selectByExample(example);
+		
+		List<EasyUITreeNode> easyUITreeNodes = new ArrayList<>();
+		
+		for (TbContentCategory tbContentCategory : list) {
+			EasyUITreeNode node = new EasyUITreeNode();
+			node.setId(tbContentCategory.getId().intValue());
+			node.setState(tbContentCategory.getIsParent() ? "closed" :"open" );
+			node.setText(tbContentCategory.getName());
+		
+			easyUITreeNodes.add(node); 		// 添加到集合中
+		}
+		
+		return easyUITreeNodes;
+	}
+
+	
+	
+}

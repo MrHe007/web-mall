@@ -1,0 +1,10 @@
+package com.bigguy.content.service;
+
+import java.util.List;
+
+import com.bigguy.pojo.EasyUITreeNode;
+
+public interface ContentCategoryService {
+
+	public List<EasyUITreeNode> getContentCategoryList(long id);	
+}
