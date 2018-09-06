@@ -12,7 +12,7 @@
 * 商品管理系统：
    * 管理员可以查看，增加、删除商品信息
 
-  * 采用技术：
+ * 采用技术：
    * 前端：LayUI + js + JQuery+html +css3
    * 后端：Spring + SpringMVC + MyBatis
    * 数据库：Mysql + Redis
